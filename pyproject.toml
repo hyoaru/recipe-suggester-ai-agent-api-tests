@@ -1,0 +1,12 @@
+[project]
+name = "api-tests"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "python-dotenv>=1.0.1",
+    "robotframework>=7.2.2",
+    "robotframework-jsonlibrary>=0.5",
+    "robotframework-requests>=0.9.7",
+]

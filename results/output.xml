@@ -1,0 +1,1328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.12.3 on linux)" generated="2025-02-19T08:28:36.430863" rpa="false" schemaversion="5">
+<suite id="s1" name="Suites" source="/media/jiji/eb18153f-9be1-4f06-9fa8-cf63a398e6141/Development/web/recipe-suggester-ai-agent/api-tests/tests/suites">
+<suite id="s1-s1" name="Operations" source="/media/jiji/eb18153f-9be1-4f06-9fa8-cf63a398e6141/Development/web/recipe-suggester-ai-agent/api-tests/tests/suites/operations.robot">
+<kw name="Initialize" type="SETUP">
+<kw name="Initialize Global Variables" owner="base">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.817812" level="INFO">Setting up suite...</msg>
+<arg>Setting up suite...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.817640" elapsed="0.000270"/>
+</kw>
+<kw name="Get Environment Variable" owner="OperatingSystem">
+<msg time="2025-02-19T08:28:36.818305" level="INFO">${api_base_url} = http://localhost:8000</msg>
+<var>${api_base_url}</var>
+<arg>API_BASE_URL</arg>
+<doc>Returns the value of an environment variable with the given name.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.818090" elapsed="0.000254"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.818785" level="INFO">${GLOBAL_API_BASE_URL} = http://localhost:8000</msg>
+<arg>${GLOBAL_API_BASE_URL}</arg>
+<arg>${api_base_url}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.818506" elapsed="0.000340"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.817011" elapsed="0.001918"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.819184" level="INFO">Loading response schemas...</msg>
+<arg>Loading response schemas...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.819065" elapsed="0.000182"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-02-19T08:28:36.819694" level="INFO">${SUITE_HEALTH_RESPONSE_SCHEMA} = {'type': 'object', 'properties': {'status': {'type': 'string'}}, 'required': ['status']}</msg>
+<var>${SUITE_HEALTH_RESPONSE_SCHEMA}</var>
+<arg>./tests/json_schemas/health_response.json</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.819386" elapsed="0.000344"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.820129" level="INFO">${SUITE_HEALTH_RESPONSE_SCHEMA} = {'type': 'object', 'properties': {'status': {'type': 'string'}}, 'required': ['status']}</msg>
+<arg>${SUITE_HEALTH_RESPONSE_SCHEMA}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.819875" elapsed="0.000336"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-02-19T08:28:36.820675" level="INFO">${SUITE_LOGS_RESPONSE_SCHEMA} = {'type': 'array', 'items': {'type': 'string'}}</msg>
+<var>${SUITE_LOGS_RESPONSE_SCHEMA}</var>
+<arg>./tests/json_schemas/logs_response.json</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.820387" elapsed="0.000323"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.821150" level="INFO">${SUITE_LOGS_RESPONSE_SCHEMA} = {'type': 'array', 'items': {'type': 'string'}}</msg>
+<arg>${SUITE_LOGS_RESPONSE_SCHEMA}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.820897" elapsed="0.000309"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.821444" level="INFO">Loaded response schemas.</msg>
+<arg>Loaded response schemas.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.821331" elapsed="0.000190"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.816587" elapsed="0.005020"/>
+</kw>
+<test id="s1-s1-t1" name="Verify Health Check Returns Valid Data" line="25">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.822814" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.822478" elapsed="0.000374"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.823331" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:36.823013" elapsed="0.000553"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.822195" elapsed="0.001461"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.823983" level="INFO">Sending health check request...</msg>
+<arg>Sending health check request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.823829" elapsed="0.000215"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.829041" level="INFO">GET Request : url=http://localhost:8000/api/operations/health 
+ path_url=/api/operations/health 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2025-02-19T08:28:36.829226" level="INFO">GET Response : url=http://localhost:8000/api/operations/health 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:35 GMT', 'server': 'uvicorn', 'content-length': '15', 'content-type': 'application/json'} 
+ body={"status":"ok"} 
+ </msg>
+<msg time="2025-02-19T08:28:36.829413" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/operations/health</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.824212" elapsed="0.005251"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.830003" level="INFO">Sent health check request.</msg>
+<arg>Sent health check request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.829789" elapsed="0.000296"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.830521" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.830339" elapsed="0.000250"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.830778" elapsed="0.000214"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.831818" level="INFO">${response_payload} = {'status': 'ok'}</msg>
+<var>${response_payload}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.831177" elapsed="0.000681"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.832291" level="INFO">{'status': 'ok'}</msg>
+<arg>${response_payload}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.832071" elapsed="0.000308"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.832929" level="INFO">{'type': 'object', 'properties': {'status': {'type': 'string'}}, 'required': ['status']}</msg>
+<arg>${SUITE_HEALTH_RESPONSE_SCHEMA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.832643" elapsed="0.000481"/>
+</kw>
+<kw name="Validate Json By Schema" owner="JSONLibrary">
+<arg>json_object=${response_payload}</arg>
+<arg>schema=${SUITE_HEALTH_RESPONSE_SCHEMA}</arg>
+<doc>Validate json object by json schema.
+Arguments:
+    - json_object: json as a dictionary object.
+    - schema: schema as a dictionary object.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.833452" elapsed="0.002542"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.836605" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.836368" elapsed="0.000331"/>
+</kw>
+<tag>positive</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2025-02-19T08:28:36.821687" elapsed="0.015294"/>
+</test>
+<test id="s1-s1-t2" name="Verify Logs Returns Valid Data" line="41">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.842211" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.841565" elapsed="0.000752"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.843625" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:36.842630" elapsed="0.001818"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.840243" elapsed="0.004569"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.846174" level="INFO">Sending logs request...</msg>
+<arg>Sending logs request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.845553" elapsed="0.000860"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.864206" level="INFO">GET Request : url=http://localhost:8000/api/operations/logs 
+ path_url=/api/operations/logs 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2025-02-19T08:28:36.864717" level="INFO">GET Response : url=http://localhost:8000/api/operations/logs 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:35 GMT', 'server': 'uvicorn', 'content-length': '4514', 'content-type': 'application/json'} 
+ body=["[2025-02-19 08:28:36] [INFO] - GET /api/operations/health - 200 - 0.00s\n","[2025-02-19 08:27:03] [INFO] - POST /api/recipes/suggest - 200 - 5.53s\n","[2025-02-19 08:27:03] [INFO] - Recipes suggested: [Recipe(name='Vegetable Stir-Fry', description='A quick and healthy vegetable stir-fry that can be customized with your favorite vegetables and sauces.', ingredients=['Vegetables (like broccoli, bell peppers, carrots)', 'Soy sauce', 'Garlic', 'Ginger', 'Olive oil', 'Salt', 'Pepper'], steps=['Heat olive oil in a large pan over medium heat.', 'Add minced garlic and ginger, sauté for 1-2 minutes until fragrant.', 'Add chopped vegetables to the pan and stir-fry for about 5-7 minutes until tender-crisp.', 'Drizzle with soy sauce, and season with salt and pepper to taste. Stir well.', 'Serve hot over cooked rice or noodles.']), Recipe(name='Vegetable Soup', description='A comforting vegetable soup that is perfect for any season, loaded with nutrients and flavor.', ingredients=['Vegetables (like carrots, celery, potatoes)', 'Vegetable broth', 'Tomatoes (diced)', 'Garlic', 'Onion', 'Olive oil', 'Herbs (like thyme, bay leaf)', 'Salt', 'Pepper'], steps=['In a large pot, heat olive oil over medium heat. Add chopped onion and garlic, and sauté until translucent.', 'Add diced tomatoes, chopped vegetables, and herbs. Stir for about 5 minutes.', 'Pour in vegetable broth and bring to a boil.', 'Reduce heat and let it simmer for 20-30 minutes until vegetables are tender.', 'Season with salt and pepper to taste. Serve hot.'])]\n","[2025-02-19 08:26:58] [INFO] - Request received with ingredients: [' ', '  ']\n","[2025-02-19 08:26:58] [INFO] - POST /api/recipes/suggest - 200 - 6.10s\n","[2025-02-19 08:26:58] [INFO] - Recipes suggested: [Recipe(name='Scrambled Eggs with Butter', description='A fluffy and creamy scrambled egg dish that makes for a perfect breakfast or snack.', ingredients=['2 eggs', '2 tablespoons butter', 'Salt to taste', 'Pepper to taste'], steps=['In a bowl, crack the eggs and whisk them until fully blended.', 'In a non-stick skillet, melt the butter over medium heat.', 'Pour the whisked eggs into the skillet and allow them to sit for a few seconds.', 'Gently stir the eggs with a spatula, pushing them from the edges towards the center.', 'Continue to cook and stir until the eggs are fluffy and just set, about 3-4 minutes.', 'Season with salt and pepper to taste, then serve immediately.']), Recipe(name='Egg and Butter Omelette', description='A simple yet delicious omelette made with eggs and rich, creamy butter.', ingredients=['2 eggs', '2 tablespoons butter', 'Salt to taste', 'Pepper to taste'], steps=['In a bowl, beat the eggs and season with salt and pepper.', 'Heat a skillet over medium heat and add one tablespoon of butter.', 'Once the butter is melted and sizzling, pour in the beaten eggs.', 'Cook until the edges start to set, about 2 minutes, then gently lift the edges with a spatula to allow uncooked egg to flow underneath.', 'When the eggs are mostly set but slightly runny on top, add the remaining tablespoon of butter on one half of the omelette.', 'Fold the other half over the butter and cook for another minute until fully set.'])]\n","[2025-02-19 08:26:52] [INFO] - Request received with ingredients: ['egg', 'egg', 'butter', 'butter']\n","[2025-02-19 08:26:52] [INFO] - POST /api/recipes/suggest - 200 - 15.96s\n","[2025-02-19 08:26:52] [INFO] - Recipes suggested: [Recipe(name='Butter Poached Eggs', description='A simple yet elegant breakfast dish featuring eggs poached in butter for a rich flavor.', ingredients=['🥚', 'バター'], steps=['In a saucepan, melt butter over low heat until foamy.', 'Crack the eggs into small bowls one at a time.', 'Gently slide the eggs into the melted butter, keeping them separate.', 'Cover the pan and cook for 3-4 minutes until the whites are set but yolks are still runny.', 'Using a slotted spoon, carefully remove the eggs from the butter and serve immediately.']), Recipe(name='Egg Soup', description='A comforting soup made with eggs and broth, perfect for a light meal.', ingredients=['🥚', '汤', 'バター'], steps=['In a pot, melt butter over medium heat.', 'Add the broth and bring to a gentle simmer.', 'Crack the eggs into the pot, stirring gently to create ribbons of egg.', 'Cook for 2-3 minutes until the eggs are cooked through.', 'Season with salt and pepper, and serve warm.'])]\n","[2025-02-19 08:26:36] [INFO] - Request received with ingredients: ['🥚', 'バター', '汤']\n"] 
+ </msg>
+<msg time="2025-02-19T08:28:36.865225" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/operations/logs</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.847062" elapsed="0.018234"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.866381" level="INFO">Sent logs request.</msg>
+<arg>Sent logs request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.865983" elapsed="0.000539"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.867169" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.866935" elapsed="0.000308"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.867478" elapsed="0.000176"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.868805" level="INFO">${response_payload} = ['[2025-02-19 08:28:36] [INFO] - GET /api/operations/health - 200 - 0.00s\n', '[2025-02-19 08:27:03] [INFO] - POST /api/recipes/suggest - 200 - 5.53s\n', "[2025-02-19 08:27:03] [INFO] - Recipes sugges...</msg>
+<var>${response_payload}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.867873" elapsed="0.000983"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.869595" level="INFO">['[2025-02-19 08:28:36] [INFO] - GET /api/operations/health - 200 - 0.00s\n', '[2025-02-19 08:27:03] [INFO] - POST /api/recipes/suggest - 200 - 5.53s\n', "[2025-02-19 08:27:03] [INFO] - Recipes suggested: [Recipe(name='Vegetable Stir-Fry', description='A quick and healthy vegetable stir-fry that can be customized with your favorite vegetables and sauces.', ingredients=['Vegetables (like broccoli, bell peppers, carrots)', 'Soy sauce', 'Garlic', 'Ginger', 'Olive oil', 'Salt', 'Pepper'], steps=['Heat olive oil in a large pan over medium heat.', 'Add minced garlic and ginger, sauté for 1-2 minutes until fragrant.', 'Add chopped vegetables to the pan and stir-fry for about 5-7 minutes until tender-crisp.', 'Drizzle with soy sauce, and season with salt and pepper to taste. Stir well.', 'Serve hot over cooked rice or noodles.']), Recipe(name='Vegetable Soup', description='A comforting vegetable soup that is perfect for any season, loaded with nutrients and flavor.', ingredients=['Vegetables (like carrots, celery, potatoes)', 'Vegetable broth', 'Tomatoes (diced)', 'Garlic', 'Onion', 'Olive oil', 'Herbs (like thyme, bay leaf)', 'Salt', 'Pepper'], steps=['In a large pot, heat olive oil over medium heat. Add chopped onion and garlic, and sauté until translucent.', 'Add diced tomatoes, chopped vegetables, and herbs. Stir for about 5 minutes.', 'Pour in vegetable broth and bring to a boil.', 'Reduce heat and let it simmer for 20-30 minutes until vegetables are tender.', 'Season with salt and pepper to taste. Serve hot.'])]\n", "[2025-02-19 08:26:58] [INFO] - Request received with ingredients: [' ', '  ']\n", '[2025-02-19 08:26:58] [INFO] - POST /api/recipes/suggest - 200 - 6.10s\n', "[2025-02-19 08:26:58] [INFO] - Recipes suggested: [Recipe(name='Scrambled Eggs with Butter', description='A fluffy and creamy scrambled egg dish that makes for a perfect breakfast or snack.', ingredients=['2 eggs', '2 tablespoons butter', 'Salt to taste', 'Pepper to taste'], steps=['In a bowl, crack the eggs and whisk them until fully blended.', 'In a non-stick skillet, melt the butter over medium heat.', 'Pour the whisked eggs into the skillet and allow them to sit for a few seconds.', 'Gently stir the eggs with a spatula, pushing them from the edges towards the center.', 'Continue to cook and stir until the eggs are fluffy and just set, about 3-4 minutes.', 'Season with salt and pepper to taste, then serve immediately.']), Recipe(name='Egg and Butter Omelette', description='A simple yet delicious omelette made with eggs and rich, creamy butter.', ingredients=['2 eggs', '2 tablespoons butter', 'Salt to taste', 'Pepper to taste'], steps=['In a bowl, beat the eggs and season with salt and pepper.', 'Heat a skillet over medium heat and add one tablespoon of butter.', 'Once the butter is melted and sizzling, pour in the beaten eggs.', 'Cook until the edges start to set, about 2 minutes, then gently lift the edges with a spatula to allow uncooked egg to flow underneath.', 'When the eggs are mostly set but slightly runny on top, add the remaining tablespoon of butter on one half of the omelette.', 'Fold the other half over the butter and cook for another minute until fully set.'])]\n", "[2025-02-19 08:26:52] [INFO] - Request received with ingredients: ['egg', 'egg', 'butter', 'butter']\n", '[2025-02-19 08:26:52] [INFO] - POST /api/recipes/suggest - 200 - 15.96s\n', "[2025-02-19 08:26:52] [INFO] - Recipes suggested: [Recipe(name='Butter Poached Eggs', description='A simple yet elegant breakfast dish featuring eggs poached in butter for a rich flavor.', ingredients=['🥚', 'バター'], steps=['In a saucepan, melt butter over low heat until foamy.', 'Crack the eggs into small bowls one at a time.', 'Gently slide the eggs into the melted butter, keeping them separate.', 'Cover the pan and cook for 3-4 minutes until the whites are set but yolks are still runny.', 'Using a slotted spoon, carefully remove the eggs from the butter and serve immediately.']), Recipe(name='Egg Soup', description='A comforting soup made with eggs and broth, perfect for a light meal.', ingredients=['🥚', '汤', 'バター'], steps=['In a pot, melt butter over medium heat.', 'Add the broth and bring to a gentle simmer.', 'Crack the eggs into the pot, stirring gently to create ribbons of egg.', 'Cook for 2-3 minutes until the eggs are cooked through.', 'Season with salt and pepper, and serve warm.'])]\n", "[2025-02-19 08:26:36] [INFO] - Request received with ingredients: ['🥚', 'バター', '汤']\n"]</msg>
+<arg>${response_payload}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.869148" elapsed="0.000609"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.870588" level="INFO">{'type': 'array', 'items': {'type': 'string'}}</msg>
+<arg>${SUITE_LOGS_RESPONSE_SCHEMA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.870016" elapsed="0.000667"/>
+</kw>
+<kw name="Validate Json By Schema" owner="JSONLibrary">
+<arg>json_object=${response_payload}</arg>
+<arg>schema=${SUITE_LOGS_RESPONSE_SCHEMA}</arg>
+<doc>Validate json object by json schema.
+Arguments:
+    - json_object: json as a dictionary object.
+    - schema: schema as a dictionary object.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.871223" elapsed="0.004128"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.877609" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.876666" elapsed="0.002685"/>
+</kw>
+<tag>positive</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2025-02-19T08:28:36.837612" elapsed="0.042734"/>
+</test>
+<test id="s1-s1-t3" name="Verify Logs Endpoint With Query Parameters" line="58">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.887602" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.886523" elapsed="0.001253"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.889179" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:36.888273" elapsed="0.001708"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.884837" elapsed="0.005394"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.892036" level="INFO">Creating request params...</msg>
+<arg>Creating request params...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.891366" elapsed="0.000961"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.894476" level="INFO">${params} = {'count': '5'}</msg>
+<var>${params}</var>
+<arg>count=5</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.893424" elapsed="0.001220"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.895626" level="INFO">Created request params</msg>
+<arg>Created request params</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.895322" elapsed="0.000427"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.896344" level="INFO">Sending logs request with query params...</msg>
+<arg>Sending logs request with query params...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.896119" elapsed="0.000320"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.903969" level="INFO">GET Request : url=http://localhost:8000/api/operations/logs?count=5 
+ path_url=/api/operations/logs?count=5 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2025-02-19T08:28:36.904096" level="INFO">GET Response : url=http://localhost:8000/api/operations/logs?count=5 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:35 GMT', 'server': 'uvicorn', 'content-length': '1695', 'content-type': 'application/json'} 
+ body=["[2025-02-19 08:28:36] [INFO] - GET /api/operations/logs - 200 - 0.01s\n","[2025-02-19 08:28:36] [INFO] - GET /api/operations/health - 200 - 0.00s\n","[2025-02-19 08:27:03] [INFO] - POST /api/recipes/suggest - 200 - 5.53s\n","[2025-02-19 08:27:03] [INFO] - Recipes suggested: [Recipe(name='Vegetable Stir-Fry', description='A quick and healthy vegetable stir-fry that can be customized with your favorite vegetables and sauces.', ingredients=['Vegetables (like broccoli, bell peppers, carrots)', 'Soy sauce', 'Garlic', 'Ginger', 'Olive oil', 'Salt', 'Pepper'], steps=['Heat olive oil in a large pan over medium heat.', 'Add minced garlic and ginger, sauté for 1-2 minutes until fragrant.', 'Add chopped vegetables to the pan and stir-fry for about 5-7 minutes until tender-crisp.', 'Drizzle with soy sauce, and season with salt and pepper to taste. Stir well.', 'Serve hot over cooked rice or noodles.']), Recipe(name='Vegetable Soup', description='A comforting vegetable soup that is perfect for any season, loaded with nutrients and flavor.', ingredients=['Vegetables (like carrots, celery, potatoes)', 'Vegetable broth', 'Tomatoes (diced)', 'Garlic', 'Onion', 'Olive oil', 'Herbs (like thyme, bay leaf)', 'Salt', 'Pepper'], steps=['In a large pot, heat olive oil over medium heat. Add chopped onion and garlic, and sauté until translucent.', 'Add diced tomatoes, chopped vegetables, and herbs. Stir for about 5 minutes.', 'Pour in vegetable broth and bring to a boil.', 'Reduce heat and let it simmer for 20-30 minutes until vegetables are tender.', 'Season with salt and pepper to taste. Serve hot.'])]\n","[2025-02-19 08:26:58] [INFO] - Request received with ingredients: [' ', '  ']\n"] 
+ </msg>
+<msg time="2025-02-19T08:28:36.904314" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/operations/logs</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.896766" elapsed="0.007590"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.904892" level="INFO">Sent logs request.</msg>
+<arg>Sent logs request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.904704" elapsed="0.000285"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.905680" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.905258" elapsed="0.000585"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.906620" elapsed="0.002156"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.913174" level="INFO">${response_body} = ['[2025-02-19 08:28:36] [INFO] - GET /api/operations/logs - 200 - 0.01s\n', '[2025-02-19 08:28:36] [INFO] - GET /api/operations/health - 200 - 0.00s\n', '[2025-02-19 08:27:03] [INFO] - POST /api/recip...</msg>
+<var>${response_body}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.909685" elapsed="0.007301"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.918870" level="INFO">['[2025-02-19 08:28:36] [INFO] - GET /api/operations/logs - 200 - 0.01s\n', '[2025-02-19 08:28:36] [INFO] - GET /api/operations/health - 200 - 0.00s\n', '[2025-02-19 08:27:03] [INFO] - POST /api/recipes/suggest - 200 - 5.53s\n', "[2025-02-19 08:27:03] [INFO] - Recipes suggested: [Recipe(name='Vegetable Stir-Fry', description='A quick and healthy vegetable stir-fry that can be customized with your favorite vegetables and sauces.', ingredients=['Vegetables (like broccoli, bell peppers, carrots)', 'Soy sauce', 'Garlic', 'Ginger', 'Olive oil', 'Salt', 'Pepper'], steps=['Heat olive oil in a large pan over medium heat.', 'Add minced garlic and ginger, sauté for 1-2 minutes until fragrant.', 'Add chopped vegetables to the pan and stir-fry for about 5-7 minutes until tender-crisp.', 'Drizzle with soy sauce, and season with salt and pepper to taste. Stir well.', 'Serve hot over cooked rice or noodles.']), Recipe(name='Vegetable Soup', description='A comforting vegetable soup that is perfect for any season, loaded with nutrients and flavor.', ingredients=['Vegetables (like carrots, celery, potatoes)', 'Vegetable broth', 'Tomatoes (diced)', 'Garlic', 'Onion', 'Olive oil', 'Herbs (like thyme, bay leaf)', 'Salt', 'Pepper'], steps=['In a large pot, heat olive oil over medium heat. Add chopped onion and garlic, and sauté until translucent.', 'Add diced tomatoes, chopped vegetables, and herbs. Stir for about 5 minutes.', 'Pour in vegetable broth and bring to a boil.', 'Reduce heat and let it simmer for 20-30 minutes until vegetables are tender.', 'Season with salt and pepper to taste. Serve hot.'])]\n", "[2025-02-19 08:26:58] [INFO] - Request received with ingredients: [' ', '  ']\n"]</msg>
+<arg>${response_body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.917828" elapsed="0.001655"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.920596" level="INFO">Length is 5.</msg>
+<msg time="2025-02-19T08:28:36.920913" level="INFO">${response_length} = 5</msg>
+<var>${response_length}</var>
+<arg>${response_body}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.920063" elapsed="0.000962"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${response_length} &lt;= 5</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.922125" elapsed="0.001060"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.924729" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.924029" elapsed="0.001713"/>
+</kw>
+<tag>positive</tag>
+<status status="PASS" start="2025-02-19T08:28:36.882506" elapsed="0.044051"/>
+</test>
+<doc>Test suites for operations resource</doc>
+<status status="PASS" start="2025-02-19T08:28:36.487573" elapsed="0.440422"/>
+</suite>
+<suite id="s1-s2" name="Recipe Suggestions" source="/media/jiji/eb18153f-9be1-4f06-9fa8-cf63a398e6141/Development/web/recipe-suggester-ai-agent/api-tests/tests/suites/recipe_suggestions.robot">
+<kw name="Initialize" type="SETUP">
+<kw name="Initialize Global Variables" owner="base">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.947079" level="INFO">Setting up suite...</msg>
+<arg>Setting up suite...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.946308" elapsed="0.000926"/>
+</kw>
+<kw name="Get Environment Variable" owner="OperatingSystem">
+<msg time="2025-02-19T08:28:36.948133" level="INFO">${api_base_url} = http://localhost:8000</msg>
+<var>${api_base_url}</var>
+<arg>API_BASE_URL</arg>
+<doc>Returns the value of an environment variable with the given name.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.947584" elapsed="0.000659"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.949434" level="INFO">${GLOBAL_API_BASE_URL} = http://localhost:8000</msg>
+<arg>${GLOBAL_API_BASE_URL}</arg>
+<arg>${api_base_url}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.948706" elapsed="0.000941"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.945676" elapsed="0.004213"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.950641" level="INFO">Loading response schemas...</msg>
+<arg>Loading response schemas...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.950266" elapsed="0.000534"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-02-19T08:28:36.952047" level="INFO">${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA} = {'type': 'array', 'items': {'type': 'object', 'properties': {'name': {'type': 'string'}, 'description': {'type': 'string'}, 'ingredients': {'type': 'array', 'items': {'type': 'string'}}, 'steps': {'ty...</msg>
+<var>${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}</var>
+<arg>./tests/json_schemas/recipe_suggestions_response.json</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.951193" elapsed="0.000961"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.953963" level="INFO">${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA} = {'type': 'array', 'items': {'type': 'object', 'properties': {'name': {'type': 'string'}, 'description': {'type': 'string'}, 'ingredients': {'type': 'array', 'items': {'type': 'string'}}, 'steps': {'ty...</msg>
+<arg>${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.952650" elapsed="0.001753"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.955725" level="INFO">Loaded response schemas.</msg>
+<arg>Loaded response schemas.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.955102" elapsed="0.000898"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.944377" elapsed="0.011920"/>
+</kw>
+<test id="s1-s2-t1" name="Suggest Recipes With Valid Ingredients" line="20">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.959607" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.958911" elapsed="0.000815"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:36.961149" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:36.960209" elapsed="0.001610"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:36.958109" elapsed="0.004026"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.963321" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.962804" elapsed="0.000674"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.964623" level="INFO">${ingredients} = ['egg', 'butter']</msg>
+<var>${ingredients}</var>
+<arg>egg</arg>
+<arg>butter</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.964031" elapsed="0.000697"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.966210" level="INFO">${request_payload} = {'ingredients': ['egg', 'butter']}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=${ingredients}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.965297" elapsed="0.001038"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.967813" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.967092" elapsed="0.000990"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:36.969667" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.968859" elapsed="0.001151"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:43.912876" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '34'} 
+ body=b'{"ingredients": ["egg", "butter"]}' 
+ </msg>
+<msg time="2025-02-19T08:28:43.913136" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:36 GMT', 'server': 'uvicorn', 'content-length': '1405', 'content-type': 'application/json'} 
+ body=[{"name":"Classic Scrambled Eggs","description":"A quick and simple recipe for fluffy scrambled eggs, perfect for breakfast or any meal.","ingredients":["2 large eggs","1 tablespoon butter","Salt to taste","Pepper to taste"],"steps":["Crack the eggs into a bowl and whisk them until fully blended.","Heat a non-stick skillet over low heat and add the butter.","Once the butter is melted and foamy, pour in the eggs.","Allow the eggs to sit for a few moments, then gently stir with a spatula.","Continue to cook, stirring occasionally, until the eggs are just set but still soft.","Season with salt and pepper to taste, and serve immediately."]},{"name":"Egg and Butter Omelette","description":"A simple and delicious omelette that's creamy and rich, using just eggs and butter.","ingredients":["2 large eggs","1 tablespoon butter","Salt to taste","Pepper to taste"],"steps":["In a bowl, beat the eggs with a pinch of salt and pepper.","Heat the butter in a non-stick skillet over medium heat until melted.","Pour the beaten eggs into the skillet and let them cook undisturbed for a minute.","Using a spatula, gently push the cooked edges toward the center while tilting the pan to let uncooked eggs flow to the edges.","When the eggs are mostly set but the top is still slightly runny, fold the omelette in half.","Cook for another minute until fully cooked, then slide it onto a plate and serve warm."]}] 
+ </msg>
+<msg time="2025-02-19T08:28:43.916550" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:36.970581" elapsed="6.946092"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.917784" level="INFO">Sent post request.</msg>
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.917326" elapsed="0.003839"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.921930" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.921645" elapsed="0.000426"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.923180" elapsed="0.000337"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.925315" level="INFO">${response_payload} = [{'name': 'Classic Scrambled Eggs', 'description': 'A quick and simple recipe for fluffy scrambled eggs, perfect for breakfast or any meal.', 'ingredients': ['2 large eggs', '1 tablespoon butter', 'Sa...</msg>
+<var>${response_payload}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.923895" elapsed="0.001506"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.926319" level="INFO">[{'name': 'Classic Scrambled Eggs', 'description': 'A quick and simple recipe for fluffy scrambled eggs, perfect for breakfast or any meal.', 'ingredients': ['2 large eggs', '1 tablespoon butter', 'Salt to taste', 'Pepper to taste'], 'steps': ['Crack the eggs into a bowl and whisk them until fully blended.', 'Heat a non-stick skillet over low heat and add the butter.', 'Once the butter is melted and foamy, pour in the eggs.', 'Allow the eggs to sit for a few moments, then gently stir with a spatula.', 'Continue to cook, stirring occasionally, until the eggs are just set but still soft.', 'Season with salt and pepper to taste, and serve immediately.']}, {'name': 'Egg and Butter Omelette', 'description': "A simple and delicious omelette that's creamy and rich, using just eggs and butter.", 'ingredients': ['2 large eggs', '1 tablespoon butter', 'Salt to taste', 'Pepper to taste'], 'steps': ['In a bowl, beat the eggs with a pinch of salt and pepper.', 'Heat the butter in a non-stick skillet over medium heat until melted.', 'Pour the beaten eggs into the skillet and let them cook undisturbed for a minute.', 'Using a spatula, gently push the cooked edges toward the center while tilting the pan to let uncooked eggs flow to the edges.', 'When the eggs are mostly set but the top is still slightly runny, fold the omelette in half.', 'Cook for another minute until fully cooked, then slide it onto a plate and serve warm.']}]</msg>
+<arg>${response_payload}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.925903" elapsed="0.000560"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.927136" level="INFO">{'type': 'array', 'items': {'type': 'object', 'properties': {'name': {'type': 'string'}, 'description': {'type': 'string'}, 'ingredients': {'type': 'array', 'items': {'type': 'string'}}, 'steps': {'type': 'array', 'items': {'type': 'string'}}}, 'required': ['name', 'description', 'ingredients', 'steps']}}</msg>
+<arg>${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.926776" elapsed="0.000474"/>
+</kw>
+<kw name="Validate Json By Schema" owner="JSONLibrary">
+<arg>json_object=${response_payload}</arg>
+<arg>schema=${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}</arg>
+<doc>Validate json object by json schema.
+Arguments:
+    - json_object: json as a dictionary object.
+    - schema: schema as a dictionary object.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.927627" elapsed="0.012787"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.942320" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.941511" elapsed="0.001031"/>
+</kw>
+<tag>positive</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2025-02-19T08:28:36.956533" elapsed="6.986676"/>
+</test>
+<test id="s1-s2-t2" name="Suggest Recipes With Empty Ingredients" line="42">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.949263" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.947589" elapsed="0.001965"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:43.951621" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:43.950521" elapsed="0.003477"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:43.945847" elapsed="0.008336"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.955222" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.954964" elapsed="0.000362"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.955931" level="INFO">${request_payload} = {'ingredients': '[]'}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=[]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.955628" elapsed="0.000360"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.956611" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.956363" elapsed="0.000377"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.957452" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.957149" elapsed="0.000436"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:43.964541" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '21'} 
+ body=b'{"ingredients": "[]"}' 
+ </msg>
+<msg time="2025-02-19T08:28:43.964686" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:42 GMT', 'server': 'uvicorn', 'content-length': '112', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"list_type","loc":["body","ingredients"],"msg":"Input should be a valid list","input":"[]"}]} 
+ </msg>
+<msg time="2025-02-19T08:28:43.964890" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=422</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.958035" elapsed="0.006896"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.965504" level="INFO">Sent post request.</msg>
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.965311" elapsed="0.000282"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.966328" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.965930" elapsed="0.000541"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>422</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.967087" elapsed="0.001008"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.971096" level="INFO">{'detail': [{'type': 'list_type', 'loc': ['body', 'ingredients'], 'msg': 'Input should be a valid list', 'input': '[]'}]}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.969005" elapsed="0.002298"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.972098" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.971724" elapsed="0.000513"/>
+</kw>
+<tag>negative</tag>
+<status status="PASS" start="2025-02-19T08:28:43.944201" elapsed="0.028455"/>
+</test>
+<test id="s1-s2-t3" name="Suggest Recipes With Non String Ingredients" line="59">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.977648" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.976382" elapsed="0.001452"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:43.979265" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:43.978360" elapsed="0.001463"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:43.975013" elapsed="0.005124"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.981182" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.980684" elapsed="0.000691"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.983006" level="INFO">${request_payload} = {'ingredients': '[42, {"name": "butter"}]'}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=[42, {"name": "butter"}]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.982038" elapsed="0.001112"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.984243" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.983813" elapsed="0.000635"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:43.985543" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.985150" elapsed="0.000571"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:44.000884" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '47'} 
+ body=b'{"ingredients": "[42, {\\"name\\": \\"butter\\"}]"}' 
+ </msg>
+<msg time="2025-02-19T08:28:44.001062" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:43 GMT', 'server': 'uvicorn', 'content-length': '138', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"list_type","loc":["body","ingredients"],"msg":"Input should be a valid list","input":"[42, {\"name\": \"butter\"}]"}]} 
+ </msg>
+<msg time="2025-02-19T08:28:44.001422" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=422</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:43.986440" elapsed="0.015052"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.002213" level="INFO">Sent post request.</msg>
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.001945" elapsed="0.000383"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.003081" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.002740" elapsed="0.000454"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>422</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.003532" elapsed="0.000524"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.006125" level="INFO">{'detail': [{'type': 'list_type', 'loc': ['body', 'ingredients'], 'msg': 'Input should be a valid list', 'input': '[42, {"name": "butter"}]'}]}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.004848" elapsed="0.001424"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.007180" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.006915" elapsed="0.000374"/>
+</kw>
+<tag>negative</tag>
+<status status="PASS" start="2025-02-19T08:28:43.973421" elapsed="0.034175"/>
+</test>
+<test id="s1-s2-t4" name="Suggest Recipes Without Ingredients Key" line="77">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.013379" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.012914" elapsed="0.000536"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:44.017513" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:44.016118" elapsed="0.002067"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:44.012242" elapsed="0.006173"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.025968" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.018903" elapsed="0.007308"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.027266" level="INFO">${request_payload} = {}</msg>
+<var>${request_payload}</var>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.026779" elapsed="0.000569"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.036327" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.032605" elapsed="0.005862"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.039204" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.038909" elapsed="0.000406"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:44.068204" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '2'} 
+ body=b'{}' 
+ </msg>
+<msg time="2025-02-19T08:28:44.068349" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:43 GMT', 'server': 'uvicorn', 'content-length': '94', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"missing","loc":["body","ingredients"],"msg":"Field required","input":{}}]} 
+ </msg>
+<msg time="2025-02-19T08:28:44.068583" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=422</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.039650" elapsed="0.028989"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.072320" level="INFO">Sent post request.</msg>
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.072011" elapsed="0.000426"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.075696" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.075413" elapsed="0.000388"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>422</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.076207" elapsed="0.001042"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.079105" level="INFO">{'detail': [{'type': 'missing', 'loc': ['body', 'ingredients'], 'msg': 'Field required', 'input': {}}]}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.077658" elapsed="0.001602"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.088790" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.079615" elapsed="0.009376"/>
+</kw>
+<tag>negative</tag>
+<status status="PASS" start="2025-02-19T08:28:44.008056" elapsed="0.082097"/>
+</test>
+<test id="s1-s2-t5" name="Suggest Recipes With Special Characters As Ingredient" line="95">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.092492" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.092049" elapsed="0.000511"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:44.093310" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:44.092812" elapsed="0.000783"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:44.091507" elapsed="0.002225"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.094313" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.094076" elapsed="0.000333"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.095058" level="INFO">${ingredients} = ['egg', '@butter!']</msg>
+<var>${ingredients}</var>
+<arg>egg</arg>
+<arg>@butter!</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.094704" elapsed="0.000424"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.096046" level="INFO">${request_payload} = {'ingredients': ['egg', '@butter!']}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=${ingredients}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.095492" elapsed="0.000622"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.096770" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.096535" elapsed="0.000342"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:44.097416" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:44.097197" elapsed="0.000307"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:50.746468" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '36'} 
+ body=b'{"ingredients": ["egg", "@butter!"]}' 
+ </msg>
+<msg time="2025-02-19T08:28:50.747017" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:43 GMT', 'server': 'uvicorn', 'content-length': '1278', 'content-type': 'application/json'} 
+ body=[{"name":"Scrambled Eggs with Butter","description":"A simple and creamy scrambled egg dish enriched with butter for a luxurious flavor.","ingredients":["2 eggs","1 tablespoon butter","Salt to taste","Pepper to taste"],"steps":["Crack the eggs into a bowl and beat them until combined.","Add salt and pepper to taste.","In a non-stick skillet, melt the butter over medium heat.","Once the butter is melted and bubbling, pour in the beaten eggs.","Allow the eggs to cook undisturbed for a few moments until they start to set.","Using a spatula, gently stir the eggs, pushing them from the edges toward the center.","Continue to cook, stirring occasionally, until the eggs are softly set but still slightly runny.","Remove from heat and serve warm."]},{"name":"Egg and Butter Breakfast Toast","description":"A delightful breakfast toast topped with a buttery fried egg.","ingredients":["1 egg","1 slice of bread","1 tablespoon butter","Salt to taste","Pepper to taste"],"steps":["Toast the bread to your desired crispness.","In a skillet, melt the butter over medium heat.","Crack the egg into the skillet and break the yolk if desired.","Cook to your preferred doneness, seasoning with salt and pepper.","Once cooked, place the egg on the toasted bread and serve immediately."]}] 
+ </msg>
+<msg time="2025-02-19T08:28:50.747530" level="FAIL">Url: http://localhost:8000/api/recipes/suggest Expected status: 200 != 422</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=422</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-02-19T08:28:44.097763" elapsed="6.652277">Url: http://localhost:8000/api/recipes/suggest Expected status: 200 != 422</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:28:50.750596" elapsed="0.000082"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:28:50.751068" elapsed="0.000075"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>422</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2025-02-19T08:28:50.751530" elapsed="0.000054"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:28:50.751860" elapsed="0.000049"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:28:50.752187" elapsed="0.000048"/>
+</kw>
+<tag>edge</tag>
+<tag>negative</tag>
+<status status="FAIL" start="2025-02-19T08:28:44.090677" elapsed="6.661953">Url: http://localhost:8000/api/recipes/suggest Expected status: 200 != 422</status>
+</test>
+<test id="s1-s2-t6" name="Suggest Recipes With Unicode Characters In Ingredients" line="114">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:50.756430" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.755633" elapsed="0.000932"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:50.757993" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:50.757389" elapsed="0.001035"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:50.754238" elapsed="0.004397"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:50.759370" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.759054" elapsed="0.000442"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-02-19T08:28:50.760412" level="INFO">${ingredients} = ['🥚', 'バター', '汤']</msg>
+<var>${ingredients}</var>
+<arg>🥚</arg>
+<arg>バター</arg>
+<arg>汤</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.759894" elapsed="0.000615"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:50.761618" level="INFO">${request_payload} = {'ingredients': ['🥚', 'バター', '汤']}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=${ingredients}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.760987" elapsed="0.000711"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:50.762806" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.762403" elapsed="0.000586"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:50.764413" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.763502" elapsed="0.001176"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:55.954921" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '65'} 
+ body=b'{"ingredients": ["\\ud83e\\udd5a", "\\u30d0\\u30bf\\u30fc", "\\u6c64"]}' 
+ </msg>
+<msg time="2025-02-19T08:28:55.955090" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:50 GMT', 'server': 'uvicorn', 'content-length': '1026', 'content-type': 'application/json'} 
+ body=[{"name":"Egg Drop Soup","description":"A comforting and quick soup made with beaten eggs and broth, ideal for a light meal or appetizer.","ingredients":["🥚","汤","バター"],"steps":["In a pot, heat the broth over medium heat.","Once the broth is simmering, slowly pour in the beaten eggs while stirring gently.","Let the soup cook for another minute until the eggs are fully cooked.","Add a dollop of butter for richness and stir well.","Season with salt and pepper to taste before serving."]},{"name":"Butter Scrambled Eggs","description":"Fluffy scrambled eggs cooked in butter, perfect for breakfast or brunch.","ingredients":["🥚","バター"],"steps":["Crack the eggs into a bowl and beat them lightly with a fork.","In a non-stick skillet, melt the butter over low heat.","Add the beaten eggs to the skillet and let them sit for a few moments.","Gently stir the eggs with a spatula until they start to set, then remove from heat while still slightly runny.","Serve immediately with salt and pepper to taste."]}] 
+ </msg>
+<msg time="2025-02-19T08:28:55.955459" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:50.765388" elapsed="5.190125"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.956143" level="INFO">Sent post request.</msg>
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.955880" elapsed="0.000377"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.957097" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.956829" elapsed="0.000365"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.957602" elapsed="0.000464"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.959308" level="INFO">${response_payload} = [{'name': 'Egg Drop Soup', 'description': 'A comforting and quick soup made with beaten eggs and broth, ideal for a light meal or appetizer.', 'ingredients': ['🥚', '汤', 'バター'], 'steps': ['In a pot, he...</msg>
+<var>${response_payload}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.958442" elapsed="0.000934"/>
+</kw>
+<kw name="Validate Json By Schema" owner="JSONLibrary">
+<arg>json_object=${response_payload}</arg>
+<arg>schema=${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}</arg>
+<doc>Validate json object by json schema.
+Arguments:
+    - json_object: json as a dictionary object.
+    - schema: schema as a dictionary object.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.959659" elapsed="0.009713"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.971967" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.971265" elapsed="0.000818"/>
+</kw>
+<tag>edge</tag>
+<tag>positive</tag>
+<status status="PASS" start="2025-02-19T08:28:50.753126" elapsed="5.219629"/>
+</test>
+<test id="s1-s2-t7" name="Suggest Recipes With Duplicate Ingredients" line="134">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.979814" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.978852" elapsed="0.001106"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:28:55.981310" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:28:55.980413" elapsed="0.001341"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:28:55.977083" elapsed="0.004899"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.987529" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.983657" elapsed="0.004019"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.988612" level="INFO">${ingredients} = ['egg', 'egg', 'butter', 'butter']</msg>
+<var>${ingredients}</var>
+<arg>egg</arg>
+<arg>egg</arg>
+<arg>butter</arg>
+<arg>butter</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.988097" elapsed="0.000575"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.989550" level="INFO">${request_payload} = {'ingredients': ['egg', 'egg', 'butter', 'butter']}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=${ingredients}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.989051" elapsed="0.000563"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.990167" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.989952" elapsed="0.000314"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:28:55.990755" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.990549" elapsed="0.000299"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:29:01.935725" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '51'} 
+ body=b'{"ingredients": ["egg", "egg", "butter", "butter"]}' 
+ </msg>
+<msg time="2025-02-19T08:29:01.936132" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:28:55 GMT', 'server': 'uvicorn', 'content-length': '1352', 'content-type': 'application/json'} 
+ body=[{"name":"Butter-Basted Scrambled Eggs","description":"Fluffy scrambled eggs made with butter for a rich flavor.","ingredients":["2 eggs","2 tablespoons butter","Salt to taste","Pepper to taste"],"steps":["Crack the eggs into a bowl and beat them until well mixed.","In a non-stick skillet, melt 1 tablespoon of butter over medium heat.","Pour the beaten eggs into the skillet and let them sit for a few seconds without stirring.","Stir gently with a spatula, pulling the eggs from the edges to the center.","Add the remaining tablespoon of butter and continue to scramble until the eggs are soft and slightly runny.","Season with salt and pepper to taste, then serve immediately."]},{"name":"Egg and Butter Frittata","description":"A simple and delicious frittata made with eggs and butter, perfect for breakfast.","ingredients":["2 eggs","2 tablespoons butter","Salt to taste","Pepper to taste"],"steps":["Preheat the oven to 350°F (175°C).","In a bowl, beat the eggs with salt and pepper.","In an oven-safe skillet, melt the butter over medium heat.","Pour the beaten eggs into the skillet and cook without stirring for about 2 minutes, until the edges begin to set.","Transfer the skillet to the oven and bake for 10-12 minutes, until the frittata is set and slightly golden.","Remove from the oven, let cool for a minute, and slice to serve."]}] 
+ </msg>
+<msg time="2025-02-19T08:29:01.937093" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-02-19T08:28:55.991168" elapsed="5.946118"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.939101" level="INFO">Sent post request.</msg>
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.938410" elapsed="0.000857"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.939903" level="INFO">Validating response...</msg>
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.939697" elapsed="0.000310"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.940294" elapsed="0.000367"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.941904" level="INFO">${response_payload} = [{'name': 'Butter-Basted Scrambled Eggs', 'description': 'Fluffy scrambled eggs made with butter for a rich flavor.', 'ingredients': ['2 eggs', '2 tablespoons butter', 'Salt to taste', 'Pepper to tast...</msg>
+<var>${response_payload}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.940896" elapsed="0.001084"/>
+</kw>
+<kw name="Validate Json By Schema" owner="JSONLibrary">
+<arg>json_object=${response_payload}</arg>
+<arg>schema=${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}</arg>
+<doc>Validate json object by json schema.
+Arguments:
+    - json_object: json as a dictionary object.
+    - schema: schema as a dictionary object.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.942227" elapsed="0.007645"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.950686" level="INFO">Validated response.</msg>
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.950384" elapsed="0.000420"/>
+</kw>
+<tag>edge</tag>
+<tag>positive</tag>
+<status status="PASS" start="2025-02-19T08:28:55.974680" elapsed="5.976400"/>
+</test>
+<test id="s1-s2-t8" name="Suggest Recipes With Whitespace Only Ingredients" line="154">
+<kw name="Create Api Session" owner="base">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.952931" level="INFO">${headers} = {'Content-Type': 'application/json', 'accept': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>accept=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.952591" elapsed="0.000409"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:29:01.953602" level="INFO">Creating Session using : alias=api, url=http://localhost:8000/api, headers={'Content-Type': 'application/json', 'accept': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=${GLOBAL_API_BASE_URL}/api</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-02-19T08:29:01.953197" elapsed="0.000694"/>
+</kw>
+<status status="PASS" start="2025-02-19T08:29:01.952127" elapsed="0.001928"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.954536" level="INFO">Creating request payload...</msg>
+<arg>Creating request payload...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.954315" elapsed="0.000333"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.955633" level="INFO">${ingredients} = [' ', '  ']</msg>
+<var>${ingredients}</var>
+<arg>${SPACE}</arg>
+<arg>${SPACE}${SPACE}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.954996" elapsed="0.000720"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.956880" level="INFO">${request_payload} = {'ingredients': [' ', '  ']}</msg>
+<var>${request_payload}</var>
+<arg>ingredients=${ingredients}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.956220" elapsed="0.000748"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.957613" level="INFO">Created request payload.</msg>
+<arg>Created request payload.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.957379" elapsed="0.000359"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-02-19T08:29:01.958402" level="INFO">Sending post request...</msg>
+<arg>Sending post request...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-02-19T08:29:01.958133" elapsed="0.000392"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-02-19T08:29:06.867096" level="INFO">POST Request : url=http://localhost:8000/api/recipes/suggest 
+ path_url=/api/recipes/suggest 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '28'} 
+ body=b'{"ingredients": [" ", "  "]}' 
+ </msg>
+<msg time="2025-02-19T08:29:06.867211" level="INFO">POST Response : url=http://localhost:8000/api/recipes/suggest 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 19 Feb 2025 00:29:01 GMT', 'server': 'uvicorn', 'content-length': '1037', 'content-type': 'application/json'} 
+ body=[{"name":"Vegetable Stir-Fry","description":"A quick and easy stir-fry packed with colorful vegetables and a savory sauce.","ingredients":["bell peppers","carrots","broccoli","soy sauce","garlic","ginger","vegetable oil"],"steps":["Heat vegetable oil in a pan over medium heat.","Add minced garlic and ginger, sauté for 1 minute.","Add chopped vegetables and stir-fry for 5-7 minutes until tender-crisp.","Pour in soy sauce and mix well.","Serve hot over rice or noodles."]},{"name":"Vegetable Soup","description":"A hearty and healthy vegetable soup that warms you up on a chilly day.","ingredients":["onion","carrots","celery","tomatoes","vegetable broth","garlic","herbs (thyme, bay leaf)","salt","pepper"],"steps":["Sauté chopped onions, carrots, and celery in a large pot until softened.","Add minced garlic and cook for an additional minute.","Stir in chopped tomatoes and vegetable broth.","Season with herbs, salt, and pepper.","Bring to a boil, then reduce heat and simmer for 20-30 minutes.","Serve hot with crusty bread."]}] 
+ </msg>
+<msg time="2025-02-19T08:29:06.867527" level="FAIL">Url: http://localhost:8000/api/recipes/suggest Expected status: 200 != 422</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/recipes/suggest</arg>
+<arg>json=${request_payload}</arg>
+<arg>expected_status=422</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-02-19T08:29:01.958928" elapsed="4.909255">Url: http://localhost:8000/api/recipes/suggest Expected status: 200 != 422</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Sent post request.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:29:06.868476" elapsed="0.000043"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Validating response...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:29:06.868709" elapsed="0.000035"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>422</arg>
+<arg>response=${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2025-02-19T08:29:06.868976" elapsed="0.000036"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:29:06.869204" elapsed="0.000034"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Validated response.</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-02-19T08:29:06.869468" elapsed="0.000046"/>
+</kw>
+<tag>negative</tag>
+<status status="FAIL" start="2025-02-19T08:29:01.951455" elapsed="4.918391">Url: http://localhost:8000/api/recipes/suggest Expected status: 200 != 422</status>
+</test>
+<doc>Test suites for recipe suggestion functionality</doc>
+<status status="FAIL" start="2025-02-19T08:28:36.929710" elapsed="29.940706"/>
+</suite>
+<status status="FAIL" start="2025-02-19T08:28:36.433924" elapsed="30.437465"/>
+</suite>
+<statistics>
+<total>
+<stat pass="9" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="1" skip="0">edge</stat>
+<stat pass="3" fail="2" skip="0">negative</stat>
+<stat pass="6" fail="0" skip="0">positive</stat>
+<stat pass="3" fail="0" skip="0">smoke</stat>
+</tag>
+<suite>
+<stat name="Suites" id="s1" pass="9" fail="2" skip="0">Suites</stat>
+<stat name="Operations" id="s1-s1" pass="3" fail="0" skip="0">Suites.Operations</stat>
+<stat name="Recipe Suggestions" id="s1-s2" pass="6" fail="2" skip="0">Suites.Recipe Suggestions</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
