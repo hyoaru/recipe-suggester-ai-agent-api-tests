@@ -10,4 +10,7 @@ RUN pip install uv && uv sync
 RUN uv pip freeze > requirements.txt
 RUN pip install -r requirements.txt
 
+COPY . .
+RUN mkdir -p /results
+
 CMD ["bash", "run_tests.sh"]
