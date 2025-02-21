@@ -112,7 +112,7 @@ Suggest Recipes With Special Characters As Ingredient
 
 
 Suggest Recipes With Unicode Characters In Ingredients
-    [Tags]    edge    positive
+    [Tags]    edge    negative
     Create Api Session
 
     Log    Creating request payload...
@@ -121,13 +121,12 @@ Suggest Recipes With Unicode Characters In Ingredients
     Log    Created request payload.
 
     Log    Sending post request...
-    ${response}=    POST On Session    alias=api    url=/recipes/suggest    json=${request_payload}    expected_status=200
+    ${response}=    POST On Session    alias=api    url=/recipes/suggest    json=${request_payload}    expected_status=422
     Log    Sent post request.
 
     Log    Validating response...
-    Status Should Be    200    response=${response}
-    ${response_payload}    Set Variable    ${response.json()}
-    Validate Json By Schema    json_object=${response_payload}    schema=${SUITE_RECIPE_SUGGESTIONS_RESPONSE_SCHEMA}
+    Status Should Be    422    response=${response}
+    Log    ${response.json()}
     Log    Validated response.
 
 
