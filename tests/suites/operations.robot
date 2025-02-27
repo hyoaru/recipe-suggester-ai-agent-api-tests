@@ -23,7 +23,7 @@ Initialize
 
 *** Test Cases ***
 Verify Health Check Returns Valid Data
-		[Tags]    smoke    positive
+		[Tags]    smoke    regression    positive
 		Create Api Session
 
 		Log    Sending health check request...
@@ -39,7 +39,7 @@ Verify Health Check Returns Valid Data
     Log    Validated response.
 
 Verify Logs Returns Valid Data
-    [Tags]    smoke    positive
+    [Tags]    smoke    regression    positive
     Create Api Session
 
     Log    Sending logs request...
@@ -56,7 +56,7 @@ Verify Logs Returns Valid Data
 
 
 Verify Logs Endpoint With Query Parameters
-    [Tags]    positive
+    [Tags]    regression    positive
     Create Api Session
 		
 		Log    Creating request params...

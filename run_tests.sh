@@ -1,3 +1,3 @@
 #!/bin/bash
 
-robot --outputdir ./results ./tests/suites
+pabot --outputdir ./results --testlevelsplit ./tests/suites

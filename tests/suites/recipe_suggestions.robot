@@ -18,7 +18,7 @@ Initialize
 
 *** Test Cases ***
 Suggest Recipes With Valid Ingredients
-    [Tags]    smoke    positive
+    [Tags]    smoke    regression    positive
     Create Api Session
 
     Log    Creating request payload...
@@ -40,7 +40,7 @@ Suggest Recipes With Valid Ingredients
 
 
 Suggest Recipes With Empty Ingredients
-    [Tags]    negative
+    [Tags]    negative    regression
     Create Api Session
 
     Log    Creating request payload...
@@ -93,7 +93,7 @@ Suggest Recipes Without Ingredients Key
 
 
 Suggest Recipes With Special Characters As Ingredient
-    [Tags]    edge    negative
+    [Tags]    edge    regression    negative
     Create Api Session
 
     Log    Creating request payload...
@@ -112,7 +112,7 @@ Suggest Recipes With Special Characters As Ingredient
 
 
 Suggest Recipes With Unicode Characters In Ingredients
-    [Tags]    edge    negative
+    [Tags]    edge    regression    negative
     Create Api Session
 
     Log    Creating request payload...

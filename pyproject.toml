@@ -8,5 +8,6 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "robotframework>=7.2.2",
     "robotframework-jsonlibrary>=0.5",
+    "robotframework-pabot>=4.1.1",
     "robotframework-requests>=0.9.7",
 ]
