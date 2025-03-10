@@ -82,7 +82,9 @@ pipeline {
 
                   try {
                     runRobotTests(testTagsCommaSeparated)
-                  } catch (Exception e) { }
+                  } catch (Exception e) { 
+                    echo "Failed to run robot tests: ${e.message}"
+                  }
                 }
 
                 echo 'Specific tests done.'
@@ -100,7 +102,9 @@ pipeline {
                 script {
                   try {
                     runRobotTests('all')
-                  } catch (Exception e) { }
+                  } catch (Exception e) {
+                    echo "Failed to run robot tests: ${e.message}"
+                  }
                 }
 
                 echo 'All tests done.'
