@@ -4,7 +4,7 @@ FROM ghcr.io/astral-sh/uv:python3.12-alpine
 # Install the project into `/app`
 WORKDIR /app
 
-RUN apk add curl bash --no-cache
+RUN apk add curl bash && apk cache clean
 
 # Enable bytecode compilation
 ENV UV_COMPILE_BYTECODE=1
@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # Then, add the rest of the project source code and install it
 # Installing separately from its dependencies allows optimal layer caching
-ADD . /app
+COPY . .
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --no-dev
 
