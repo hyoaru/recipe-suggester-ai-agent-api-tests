@@ -64,6 +64,11 @@ pipeline {
 
                 sh 'docker images'
                 echo 'Docker image built'
+
+                echo "Creating docker network: ${env.DOCKER_NETWORK_NAME}..."
+                sh "docker network create ${env.DOCKER_NETWORK_NAME}"
+                echo 'Docker network created.'
+
               }
             }
 
