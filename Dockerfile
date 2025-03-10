@@ -1,4 +1,7 @@
 FROM ghcr.io/astral-sh/uv:python3.12-alpine AS builder
+
+RUN apk add curl bash && apk cache clean
+
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 ENV UV_PYTHON_DOWNLOADS=0
