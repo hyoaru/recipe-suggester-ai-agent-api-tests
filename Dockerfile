@@ -1,39 +1,28 @@
+# Build stage
 FROM ghcr.io/astral-sh/uv:python3.12-alpine AS builder
 
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
-
-ENV UV_PYTHON_DOWNLOADS=0
-
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=0
 WORKDIR /app
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --no-install-project --no-dev
 
-COPY .python-version /app
-COPY pyproject.toml /app
-COPY uv.lock /app
+RUN \
+  --mount=type=bind,source=.python-version,target=.python-version \
+  --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+  --mount=type=bind,source=uv.lock,target=uv.lock \
+  --mount=type=cache,target=/root/.cache/uv \
+  uv sync --no-install-project --no-dev
 
-COPY .env /app
-COPY entrypoint.sh /app
-COPY ./tests /app/tests
+COPY .env ./tests /app/
 
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+# Run stage
+FROM python:3.12-alpine AS runner
+WORKDIR /app
 
-
-# Use a final image without uv
-FROM python:3.12-alpine AS runtime
-
-# Create group with GID 1000 and user with UID 1000
-RUN apk add curl bash && apk cache clean \
+RUN \
+  apk add curl bash && apk cache clean \
   && addgroup -g 1000 nonroot \
   && adduser -u 1000 -G nonroot -S nonroot
 
-# Copy the application from the builder
 COPY --from=builder --chown=root:root --chmod=755 /app /app
-
-WORKDIR /app
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
@@ -41,6 +30,4 @@ RUN chmod +x /entrypoint.sh
 USER nonroot
 
 ENTRYPOINT ["/entrypoint.sh"]
-
-# Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
