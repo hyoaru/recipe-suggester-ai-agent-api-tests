@@ -1,15 +1,9 @@
 services:
   robot_tests:
     build: .
-    volumes:
-      - ./:/app
-      - robot_tests_venv_volume:/app/.venv
-    command: uv run pabot --include edge --outputdir ./results --testlevelsplit ./tests/suites
+    command: pabot --include edge --outputdir ./results --testlevelsplit ./tests/suites
     networks:
       - network
-
-volumes:
-  robot_tests_venv_volume:  
 
 networks:
   network:

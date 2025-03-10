@@ -221,7 +221,7 @@ void runRobotTests(String testTagsCommaSeparated) {
 
     if (testTagsCommaSeparated == 'all') {
       echo "Running all tests..."
-      sh "uv run pabot --outputdir ./results --testlevelsplit ./tests/suites"
+      sh "pabot --outputdir ./results --testlevelsplit ./tests/suites"
       echo "Ran all tests."
     } else {
       testTagsCommaSeparated = testTagsCommaSeparated.replaceAll(/\s+/, '')
@@ -232,7 +232,7 @@ void runRobotTests(String testTagsCommaSeparated) {
       }.join(" ")
 
       echo "Running tests with flags: ${tagFlags}..."
-      sh "uv run pabot ${tagFlags} --outputdir ./results --testlevelsplit ./tests/suites"
+      sh "pabot ${tagFlags} --outputdir ./results --testlevelsplit ./tests/suites"
       echo "Ran tests with flags: ${tagFlags}."
     }
   }
