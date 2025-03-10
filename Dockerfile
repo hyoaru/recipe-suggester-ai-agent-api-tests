@@ -25,11 +25,10 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Use a final image without uv
 FROM python:3.12-alpine AS runtime
 
-RUN apk add curl bash && apk cache clean
-
 # Create group with GID 1000 and user with UID 1000
-RUN addgroup -g 1000 nonroot \
-    && adduser -u 1000 -G nonroot -S nonroot
+RUN apk add curl bash && apk cache clean \
+  && addgroup -g 1000 nonroot \
+  && adduser -u 1000 -G nonroot -S nonroot
 
 # Copy the application from the builder
 COPY --from=builder --chown=root:root --chmod=755 /app /app
