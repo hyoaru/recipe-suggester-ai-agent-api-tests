@@ -23,7 +23,7 @@ Initialize
 
 *** Test Cases ***
 Verify Health Check Returns Valid Data
-		[Tags]    smoke    regression    positive
+		[Tags]    smoke    regression    positive    @health-check
 		Create Api Session
 
 		Log    Sending health check request...
