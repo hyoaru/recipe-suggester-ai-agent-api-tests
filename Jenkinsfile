@@ -215,7 +215,7 @@ void cleanDanglingImages() {
 }
 
 void runRobotTests(String testTagsCommaSeparated) {
-  docker.image(env.DOCKER_IMAGE_NAME_API_ROBOT_TEST).inside("--network=${env.DOCKER_NETWORK_NAME} --user=root") {
+  docker.image(env.DOCKER_IMAGE_NAME_API_ROBOT_TEST).inside("--rm --network=${env.DOCKER_NETWORK_NAME} --user=root") {
     echo 'Running health check...'
     sh "curl ${env.API_STAGING_BASE_URL}/api/operations/health"
 
