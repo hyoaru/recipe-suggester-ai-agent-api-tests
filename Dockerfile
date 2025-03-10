@@ -25,7 +25,7 @@ RUN addgroup -g 1000 nonroot \
     && adduser -u 1000 -G nonroot -S nonroot
 
 # Copy the application from the builder
-COPY --from=builder --chown=nonroot:nonroot /app /app
+COPY --from=builder --chown=root:root --chmod=755 /app /app
 
 WORKDIR /app
 
