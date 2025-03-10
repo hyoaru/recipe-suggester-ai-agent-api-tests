@@ -11,6 +11,7 @@ dependencies = [
     { name = "robotframework-jsonlibrary" },
     { name = "robotframework-pabot" },
     { name = "robotframework-requests" },
+    { name = "rpds" },
 ]
 
 [package.metadata]
@@ -20,6 +21,7 @@ requires-dist = [
     { name = "robotframework-jsonlibrary", specifier = ">=0.5" },
     { name = "robotframework-pabot", specifier = ">=4.1.1" },
     { name = "robotframework-requests", specifier = ">=0.9.7" },
+    { name = "rpds", specifier = ">=5.1.0" },
 ]
 
 [[package]]
@@ -236,6 +238,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f6/cf/6e6934c3d037ef3f5914e88494127ec4d0fea73bd566539e08b9fa2c9324/robotframework-stacktrace-0.4.1.tar.gz", hash = "sha256:e96cb36e7e9ab55104c1f7d3606249a109e0a4c3bb6a0e294bff07d54ee6f6a5", size = 12634 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4e/f2/be7d680eb8a23e86ea288f6c421e1e8c30c823a8f1521dc6b9f9d7b7692b/robotframework_stacktrace-0.4.1-py3-none-any.whl", hash = "sha256:018d7a55b99733e64e3cc0b134771b61a47de61de23609ed35c7bf0a53e9290e", size = 8543 },
+]
+
+[[package]]
+name = "rpds"
+version = "5.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c8/01/8426b003e2b8ddc64fffacdade95189cedec117229d17678e9b6c2a8ef17/rpds-5.1.0.tar.gz", hash = "sha256:36f9bbfa5175c01a21110fd11a016ff969d80badf92bb874ee8d8644a5b86edc", size = 1310 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5e/c6/e6996ed7fd88093cad457ef6b473682fcf764c83e73bd2b53a553cf81a78/rpds-5.1.0-py3-none-any.whl", hash = "sha256:8086c9c9b534c41c53c14d9bb649d853b58a80f76fcd99c31eba5b02968900d9", size = 1325 },
 ]
 
 [[package]]

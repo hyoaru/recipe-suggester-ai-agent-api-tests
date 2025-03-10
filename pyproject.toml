@@ -10,4 +10,5 @@ dependencies = [
     "robotframework-jsonlibrary>=0.5",
     "robotframework-pabot>=4.1.1",
     "robotframework-requests>=0.9.7",
+    "rpds>=5.1.0",
 ]
