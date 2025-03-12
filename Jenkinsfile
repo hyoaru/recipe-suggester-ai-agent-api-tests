@@ -50,6 +50,13 @@ pipeline {
     }
 
     stage('Run Tests and Quality Analysis') {
+      when {
+        anyOf {
+          expression { env.BRANCH_NAME == 'feature' }
+          expression { env.CHANGE_TARGET == 'develop' }
+          expression { env.CHANGE_TARGET == 'master' }
+        }
+      }
       parallel {
         stage('Run Tests') {
           stages {
@@ -74,7 +81,10 @@ pipeline {
 
             stage('Run Robot Specific Tests') {
               when {
-                expression { env.CHANGE_TARGET == 'develop' }
+                anyOf {
+                  expression { env.BRANCH_NAME == 'feature' }
+                  expression { env.CHANGE_TARGET == 'develop' }
+                }
               }
               steps {
                 echo 'Specific tests pending...'
