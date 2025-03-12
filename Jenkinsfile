@@ -52,7 +52,7 @@ pipeline {
     stage('Run Tests and Quality Analysis') {
       when {
         anyOf {
-          expression { env.BRANCH_NAME == 'feature' }
+          expression { env.BRANCH_NAME.startsWith('feature') }
           expression { env.CHANGE_TARGET == 'develop' }
           expression { env.CHANGE_TARGET == 'master' }
         }
@@ -82,7 +82,7 @@ pipeline {
             stage('Run Robot Specific Tests') {
               when {
                 anyOf {
-                  expression { env.BRANCH_NAME == 'feature' }
+                  expression { env.BRANCH_NAME.startsWith('feature') }
                   expression { env.CHANGE_TARGET == 'develop' }
                 }
               }
