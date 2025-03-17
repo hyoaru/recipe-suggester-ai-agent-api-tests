@@ -39,7 +39,7 @@ Verify Health Check Returns Valid Data
     Log    Validated response.
 
 Verify Logs Returns Valid Data
-    [Tags]    smoke    regression    positive
+    [Tags]    smoke    regression    positive    @ticket-a
     Create Api Session
 
     Log    Sending logs request...
